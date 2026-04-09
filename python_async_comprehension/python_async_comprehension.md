@@ -2,7 +2,8 @@
 
 ## ¿Qué es un Async Generator?
 
-Un **async generator** es una función `async def` que usa `yield`. Puede pausarse con `await` entre cada valor que produce.
+Un **async generator** es una función `async def` que usa `yield`.  
+Puede pausarse con `await` entre cada valor que produce.
 
 ```python
 async def mi_generador():
@@ -124,13 +125,13 @@ asyncio.run(print_yielded_values())
 `0-async_generator.py`
 ```python
 #!/usr/bin/env python3
-"""Module that provides an async generator yielding random numbers."""
+"""Module that provides an async AsyncGenerator yielding random numbers."""
 import asyncio
 import random
-from typing import Generator
+from typing import AsyncGenerator
 
 
-async def async_generator() -> Generator[float, None, None]:
+async def async_generator() -> AsyncGenerator[float, None]:
     """Loop 10 times, wait 1 second async, then yield a random float 0-10."""
     for _ in range(10):
         await asyncio.sleep(1)
