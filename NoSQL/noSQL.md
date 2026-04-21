@@ -104,7 +104,7 @@ show collections                   // listar colecciones
 db.collection.find()               // listar todos los documentos
 db.collection.find({ key: val })   // listar documentos con filtro
 db.collection.countDocuments()     // contar documentos
-db.collection.insertOne({})        // insertar un documento
+db.collection.insert({})           // insertar un documento
 db.collection.updateOne({}, {})    // actualizar el primer documento que coincida
 db.collection.updateMany({}, {})   // actualizar todos los documentos que coincidan
 db.collection.deleteOne({ key: val })   // eliminar el primer documento que coincida
@@ -170,7 +170,7 @@ use nombre_db                         // seleccionar o crear una base de datos
 show collections                      // listar colecciones de la db actual
 db.collection.find()                  // ver todos los documentos
 db.collection.find().pretty()         // ver documentos con formato legible
-db.collection.insertOne({ key: val }) // insertar un documento
+db.collection.insert({ key: val })    // insertar un documento
 db.collection.updateOne({}, {})       // actualizar un documento
 db.collection.deleteOne({})           // eliminar un documento
 db.collection.countDocuments()        // contar documentos
@@ -260,16 +260,16 @@ Inserta un documento en la colección `school` de la base de datos `my_db`. El d
 
 ## Cómo funciona
 - La base de datos no se selecciona dentro del script, se pasa como argumento al comando `mongo`.
-- `db.school.insertOne({})` inserta un solo documento en la colección `school`.
+- `db.school.insert({})` inserta un documento en la colección `school`.
 - Si la colección `school` no existe, MongoDB la crea automáticamente.
-- Retorna `{ "nInserted": 1 }` confirmando que se insertó 1 documento.
+- Retorna `WriteResult({ "nInserted": 1 })` confirmando que se insertó 1 documento.
 
 ## Codigo
 
 `2-insert`
 ```js
 // inserts a document in the collection school
-db.school.insertOne({ name: "Holberton school" })
+db.school.insert({ name: "Holberton school" })
 ```
 
 ## Test
@@ -279,10 +279,10 @@ cat 2-insert | mongo my_db
 
 ## Logica
 
-**`db.school.insertOne({ name: "Holberton school" })`**
+**`db.school.insert({ name: "Holberton school" })`**
 - `db` — referencia a la base de datos activa (la que se pasa en el comando)
 - `.school` — nombre de la colección donde se inserta
-- `.insertOne({})` — inserta exactamente un documento
+- `.insert({})` — inserta el documento. Retorna `WriteResult({ "nInserted": 1 })` (a diferencia de `insertOne` que retorna un objeto diferente)
 - `{ name: "Holberton school" }` — el documento a insertar (MongoDB agrega `_id` automáticamente)
 
 **`cat 2-insert | mongo my_db`**
