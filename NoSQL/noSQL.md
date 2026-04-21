@@ -103,7 +103,7 @@ use mydb                           // seleccionar/crear una base de datos
 show collections                   // listar colecciones
 db.collection.find()               // listar todos los documentos
 db.collection.find({ key: val })   // listar documentos con filtro
-db.collection.countDocuments()     // contar documentos
+db.collection.count()              // contar documentos
 db.collection.insert({})           // insertar un documento
 db.collection.updateOne({}, {})    // actualizar el primer documento que coincida
 db.collection.updateMany({}, {})   // actualizar todos los documentos que coincidan
@@ -173,7 +173,7 @@ db.collection.find().pretty()         // ver documentos con formato legible
 db.collection.insert({ key: val })    // insertar un documento
 db.collection.updateOne({}, {})       // actualizar un documento
 db.collection.deleteOne({})           // eliminar un documento
-db.collection.countDocuments()        // contar documentos
+db.collection.count()                 // contar documentos
 db.dropDatabase()                     // eliminar la base de datos actual
 exit                                  // salir del shell
 ```
@@ -384,15 +384,15 @@ SELECT * FROM school WHERE name = 'Holberton school';
 Muestra el número total de documentos en la colección `school`.
 
 ## Cómo funciona
-- `db.school.countDocuments()` cuenta todos los documentos de la colección.
-- Retorna un número entero.
+- `db.school.count()` cuenta todos los documentos de la colección.
+- Retorna un número entero directamente.
 
 ## Codigo
 
 `5-count`
 ```js
 // displays the number of documents in the collection school
-db.school.countDocuments({})
+db.school.count()
 ```
 
 ## Test
@@ -402,12 +402,9 @@ cat 5-count | mongo my_db
 
 ## Logica
 
-**`db.school.countDocuments()`**
+**`db.school.count()`**
 - Sin filtro cuenta **todos** los documentos de la colección.
-- También acepta un filtro para contar solo los que coincidan:
-```js
-db.school.countDocuments({ name: "Holberton school" })
-```
+- Es el método legacy de MongoDB, compatible con v3.6. `countDocuments({})` es más moderno pero no estaba disponible en v3.6.
 - En SQL sería equivalente a:
 ```sql
 SELECT COUNT(*) FROM school;
