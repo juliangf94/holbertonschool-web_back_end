@@ -105,8 +105,8 @@ db.collection.find()               // listar todos los documentos
 db.collection.find({ key: val })   // listar documentos con filtro
 db.collection.count()              // contar documentos
 db.collection.insert({})           // insertar un documento
-db.collection.updateOne({}, {})    // actualizar el primer documento que coincida
-db.collection.updateMany({}, {})   // actualizar todos los documentos que coincidan
+db.collection.update({}, {})                    // actualizar el primer documento que coincida
+db.collection.update({}, {}, { multi: true })   // actualizar todos los documentos que coincidan
 db.collection.deleteOne({ key: val })   // eliminar el primer documento que coincida
 db.collection.deleteMany({ key: val })  // eliminar todos los documentos que coincidan
 ```
@@ -423,7 +423,7 @@ SELECT COUNT(*) FROM school;
 Agrega el atributo `address` con valor `"972 Mission street"` a todos los documentos de `school` donde `name` sea `"Holberton school"`.
 
 ## Cómo funciona
-- `updateMany` actualiza **todos** los documentos que coincidan con el filtro.
+- `update()` con `{ multi: true }` actualiza **todos** los documentos que coincidan con el filtro.
 - `$set` agrega o modifica atributos sin tocar los demás campos del documento.
 
 ## Codigo
@@ -431,9 +431,10 @@ Agrega el atributo `address` con valor `"972 Mission street"` a todos los docume
 `6-update`
 ```js
 // adds address attribute to all documents with name="Holberton school"
-db.school.updateMany(
+db.school.update(
     { name: "Holberton school" },
-    { $set: { address: "972 Mission street" } }
+    { $set: { address: "972 Mission street" } },
+    { multi: true }
 )
 ```
 
@@ -444,10 +445,11 @@ cat 6-update | mongo my_db
 
 ## Logica
 
-**`updateMany(filtro, modificacion)`**
+**`update(filtro, modificacion, opciones)`**
 - Primer argumento `{ name: "Holberton school" }` — el filtro, igual que en `find()`
 - Segundo argumento `{ $set: { address: "..." } }` — la modificación a aplicar
-- Actualiza **todos** los documentos que coincidan (a diferencia de `updateOne` que solo modifica el primero)
+- Tercer argumento `{ multi: true }` — indica que se actualicen **todos** los documentos que coincidan (por defecto solo modifica el primero)
+- Retorna `WriteResult({ "nMatched": 1, "nUpserted": 0, "nModified": 1 })` — formato compatible con MongoDB 3.6
 
 **`$set`**
 Operador de MongoDB que agrega o sobreescribe campos sin eliminar los demás:
@@ -457,15 +459,15 @@ Operador de MongoDB que agrega o sobreescribe campos sin eliminar los demás:
 ```
 Sin `$set` se reemplazaría el documento completo con solo `{ address: "..." }`.
 
-**Diferencia entre `updateOne` y `updateMany`:**
+**`updateMany` vs `update({ multi: true })`:**
 ```js
-db.school.updateOne(...)   // modifica solo el primer documento que coincida
-db.school.updateMany(...)  // modifica TODOS los documentos que coincidan
+db.school.updateMany(...)              // moderno, pero output diferente
+db.school.update(..., { multi: true }) // legacy MongoDB 3.6, retorna WriteResult
 ```
 
 ## Output
 ```bash
-{ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 }
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
 ```
 
 ---
