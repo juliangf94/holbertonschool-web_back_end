@@ -27,7 +27,7 @@ GET /items?limit=20&offset=20  → elementos del 21 al 40
 GET /items?limit=20&offset=100 → elementos del 101 al 120
 ```
 
-**Ventajas:** fácil de implementar, no guarda estado en el servidor.
+**Ventajas:** fácil de implementar, no guarda estado en el servidor.  
 **Desventajas:** lenta con offsets grandes; si se insertan datos nuevos entre solicitudes, los resultados pueden repetirse o saltarse.
 
 ---
@@ -41,7 +41,7 @@ GET /items?limit=20&created:lte:2021-01-20T00:00:00
 
 La API devuelve los 20 elementos cuya fecha de creación sea menor o igual a la indicada.
 
-**Ventajas:** rendimiento consistente sin importar cuántos datos haya.
+**Ventajas:** rendimiento consistente sin importar cuántos datos haya.  
 **Desventajas:** está acoplada al campo de ordenamiento, no se puede saltar a una página arbitraria.
 
 ---
@@ -55,7 +55,7 @@ GET /items?limit=20&after_id=57
 
 La API devuelve los 20 elementos siguientes al que tiene `id=57`.
 
-**Ventajas:** desacoplada de filtros, rendimiento consistente, más flexible.
+**Ventajas:** desacoplada de filtros, rendimiento consistente, más flexible.  
 **Desventajas:** más compleja de implementar en el backend.
 
 ---
@@ -112,7 +112,7 @@ Este proyecto explora diferentes estrategias de paginación para una API REST us
 
 ---
 
-# Task 0 - Función helper simple (`0-simple_helper_function.py`)
+# Task 0 - Función helper simple
 ## Qué hace
 Implementa una función `index_range(page, page_size)` que calcula los índices de inicio y fin para una página determinada dentro de una lista paginada.
 
@@ -127,12 +127,13 @@ Implementa una función `index_range(page, page_size)` que calcula los índices 
 Write a function named `index_range` that takes two integer arguments `page` and `page_size`.
 The function should return a tuple of size two containing a start index and an end index corresponding to the range of indexes to return in a list for those particular pagination parameters.
 
-Page numbers are 1-indexed, i.e. the first page is page 1.
+Page numbers are 1-indexed, i.e. the first page is page 1.  
+
 `0-main.py`
 ```python
 #!/usr/bin/env python3
 """
-Main file
+`0-simple_helper_function.py`
 """
 
 index_range = __import__('0-simple_helper_function').index_range
@@ -178,7 +179,7 @@ def index_range(page: int, page_size: int) -> Tuple[int, int]:
 
 ---
 
-# Task 1 - Paginación simple (`1-simple_pagination.py`)
+# Task 1 - Paginación simple
 
 ## Qué hace
 Implementa una clase `Server` que carga el dataset `Popular_Baby_Names.csv` y provee un método `get_page(page, page_size)` para retornar una página específica de datos.
@@ -277,19 +278,21 @@ class Server:
 
 **`dataset()`**
 Método que carga el CSV una sola vez y lo guarda en `self.__dataset`.  
+
 La primera vez que se llama, abre el archivo, lee todas las filas con `csv.reader` y descarta la primera (el encabezado) con `dataset[1:]`.  
-En llamadas siguientes simplemente retorna el valor ya guardado en caché, sin volver a leer el archivo.
+
+En llamadas siguientes simplemente retorna el valor ya guardado en caché, sin volver a leer el archivo.  
 
 **`get_page(page, page_size)`**
-Método principal de paginación. Recibe el número de página y el tamaño de página, y retorna la lista de filas correspondiente del dataset.
+Método principal de paginación. Recibe el número de página y el tamaño de página, y retorna la lista de filas correspondiente del dataset.  
 ```python
 index_range(page=1, page_size=3)
 ```
-Devuelve `(0, 3)` que seran los primeros 3 renglones del archivo
+Devuelve `(0, 3)` que seran los primeros 3 renglones del archivo  
 
 **`assert`**
 Valida que los argumentos sean correctos antes de ejecutar la lógica.  
-Si la condición es `False`, lanza un `AssertionError` y detiene la ejecución.
+Si la condición es `False`, lanza un `AssertionError` y detiene la ejecución.  
 ```python
 assert isinstance(page, int) and page > 0       # page debe ser entero positivo
 assert isinstance(page_size, int) and page_size > 0  # page_size también
@@ -327,7 +330,7 @@ AssertionError raised when page and/or page_size are not ints
 
 ---
 
-# Task 2 - Paginación con hipermedia (`2-hypermedia_pagination.py`)
+# Task 2 - Paginación con hipermedia
 
 ## Qué hace
 Extiende la clase `Server` con un método `get_hyper(page, page_size)` que retorna metadatos de paginación junto con los datos, siguiendo el principio **HATEOAS**.
@@ -349,7 +352,7 @@ Reutiliza `get_page` para obtener los datos y calcula los metadatos de navegaci�
 ```python
 #!/usr/bin/env python3
 """
-Main file
+`2-hypermedia_pagination.py`
 """
 
 Server = __import__('2-hypermedia_pagination').Server
