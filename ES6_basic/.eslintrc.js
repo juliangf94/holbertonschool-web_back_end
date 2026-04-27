@@ -20,6 +20,7 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'no-shadow': 'off',
+    'no-param-reassign': ['error', { props: false }],
     'no-restricted-syntax': [
       'error',
       'LabeledStatement',
