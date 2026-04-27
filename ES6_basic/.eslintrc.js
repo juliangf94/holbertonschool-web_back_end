@@ -21,6 +21,7 @@ module.exports = {
     'no-console': 'off',
     'no-shadow': 'off',
     'no-param-reassign': ['error', { props: false }],
+    'new-cap': 'off',
     'no-restricted-syntax': [
       'error',
       'LabeledStatement',
