@@ -7,7 +7,7 @@ const app = http.createServer((req, res) => {
   // Indicate the body is plain text (no HTML or JSON)
   res.setHeader('Content-Type', 'text/plain');
   // ned() sends the body and close the connection
-  res.end('Hello Holberton School!\n');
+  res.end('Hello Holberton School!');
 });
 
 app.listen(1245, () => {

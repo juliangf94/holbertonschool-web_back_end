@@ -36,7 +36,7 @@ const app = http.createServer((req, res) => {
   res.setHeader('Content-Type', 'text/plain');
 
   if (req.url === '/') {
-    res.end('Hello Holberton School!\n');
+    res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
     // process.argv[2] is the path to csv passed as argument: node 5-http.js database.csv
     countStudents(process.argv[2])
