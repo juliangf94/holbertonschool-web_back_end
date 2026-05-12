@@ -2,7 +2,9 @@ const readline = require('readline');
 
 process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
-const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+const rl = readline.createInterface({
+  input: process.stdin, output: process.stdout, terminal: false,
+});
 
 rl.on('line', (name) => {
   process.stdout.write(`Your name is: ${name}\n`);
