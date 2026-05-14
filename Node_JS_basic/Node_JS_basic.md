@@ -6,7 +6,7 @@
 
 ### Ejecutar JavaScript con NodeJS
 
-Node.js es un runtime de JavaScript **open-source y multiplataforma** que ejecuta el motor V8 de Chrome fuera del navegador. Esto permite usar JavaScript en el servidor.
+Node.js es un entorno (environment) runtime de JavaScript **open-source y multiplataforma** que ejecuta el motor V8 de Chrome fuera del navegador. Esto permite usar JavaScript en el servidor.
 
 **Caracteristicas clave:**
 - Corre en un **proceso unico** — no crea un hilo nuevo por cada peticion.
